@@ -1,6 +1,5 @@
 # Saliency
 Pytorch Inplementation for paper: "Aggregated Deep Saliency Prediction by Self-attention Network"
-# Tidying Deep Saliency Prediction Architectures
 
 This repository contains Pytorch Implementation of VGG-SSM. 
 
