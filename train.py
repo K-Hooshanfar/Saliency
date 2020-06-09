@@ -26,7 +26,7 @@ from tqdm import tqdm
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--no_epochs',default=120, type=int)
+parser.add_argument('--no_epochs',default=30, type=int)
 parser.add_argument('--lr',default=1e-4, type=float)
 parser.add_argument('--kldiv',default=True, type=bool)
 parser.add_argument('--cc',default=True, type=bool)
