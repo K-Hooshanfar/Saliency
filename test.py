@@ -20,7 +20,7 @@ import torch.nn.init as init
 import torch.nn.functional as F
 from scipy.stats import multivariate_normal
 from dataloader import TestLoader, SaliconDataset
-from RSAM import RSAM
+# from RSAM import RSAM
 from loss import *
 from tqdm import tqdm
 from utils import *
