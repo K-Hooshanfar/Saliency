@@ -41,7 +41,7 @@ def visualize_model(model, loader, device, args):
             pred_map = model(img)
             t += time.time() - tic
             pred_map = pred_map.cpu().squeeze(0).numpy()
-            pred_map = cv2.resize(pred_map, (sz[0], sz[1]))
+            # pred_map = cv2.resize(pred_map, (sz[0], sz[1]))
             pred_map = torch.FloatTensor(blur(pred_map))
             img_save(pred_map, join(args.results_dir, img_id[0]), normalize=True)
             print(time.time() - tic)
@@ -50,7 +50,7 @@ def visualize_model(model, loader, device, args):
 def img_save(tensor, fp, nrow=8, padding=2,
                normalize=False, range=None, scale_each=False, pad_value=0, format=None):
     grid = utils.make_grid(tensor, nrow=nrow, padding=padding, pad_value=pad_value,
-                     normalize=normalize, range=range, scale_each=scale_each)
+                     normalize=normalize, scale_each=scale_each)
 
     ''' Add 0.5 after unnormalizing to [0, 255] to round to nearest integer '''
     
