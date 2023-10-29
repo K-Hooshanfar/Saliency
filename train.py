@@ -49,13 +49,13 @@ parser.add_argument('--model_val_path',default="model-vggssm-combinedloss.pkl", 
 
 args = parser.parse_args()
 
-train_img_dir = args.dataset_dir + "images/train/"
-train_gt_dir = args.dataset_dir + "maps/train/"
-train_fix_dir = args.dataset_dir + "fixations/train/"
+train_img_dir = args.dataset_dir + "train/train_stimuli"
+train_gt_dir = args.dataset_dir + "train/train_saliency"
+train_fix_dir = args.dataset_dir + "train/train_fixation"
 
-val_img_dir = args.dataset_dir + "images/val/"
-val_gt_dir = args.dataset_dir + "maps/val/"
-val_fix_dir = args.dataset_dir + "fixations/val/"
+val_img_dir = args.dataset_dir + "val/val_stimuli"
+val_gt_dir = args.dataset_dir + "val/val_saliency"
+val_fix_dir = args.dataset_dir + "val/val_fixation"
 
 if args.enc_model == "vggm":
     print("VGGM")
@@ -139,7 +139,7 @@ def validate(model, loader, epoch, device, args):
     total_loss = 0.0
     cc_loss = AverageMeter()
     kldiv_loss = AverageMeter()
-    nss_loss = AverageMeter()
+    # nss_loss = AverageMeter()
     sim_loss = AverageMeter()
     
     for (img, gt) in loader:
@@ -152,12 +152,12 @@ def validate(model, loader, epoch, device, args):
         
         cc_loss.update(cc(blur_map, gt))    
         kldiv_loss.update(kldiv(blur_map, gt))    
-        nss_loss.update(nss(blur_map, gt))
+        # nss_loss.update(nss(blur_map, gt))
         sim_loss.update(similarity(blur_map, gt))
     judge_loss = args.kldiv_coeff * kldiv_loss.avg + args.cc_coeff * cc_loss.avg + args.sim_coeff * sim_loss.avg
     #judge_loss = args.kldiv_coeff * kldiv_loss.avg + args.cc_coeff * cc_loss.avg 
     #judge_loss = args.kldiv_coeff * kldiv_loss.avg
-    print('[{:2d},   val] CC : {:.5f}, KLDIV : {:.5f}, NSS : {:.5f}, SIM : {:.5f}, sum : {:.5f},  time:{:3f} minutes'.format(epoch, cc_loss.avg, kldiv_loss.avg, nss_loss.avg, sim_loss.avg, judge_loss, (time.time()-tic)/60))
+    print('[{:2d},   val] CC : {:.5f}, KLDIV : {:.5f}, SIM : {:.5f}, sum : {:.5f},  time:{:3f} minutes'.format(epoch, cc_loss.avg, kldiv_loss.avg, sim_loss.avg, judge_loss, (time.time()-tic)/60))
     sys.stdout.flush()
     
     return judge_loss
