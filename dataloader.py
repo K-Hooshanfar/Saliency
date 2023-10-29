@@ -22,7 +22,7 @@ class SaliconDataset(DataLoader):
     def __getitem__(self, idx):
         img_id = self.img_ids[idx]
         img_path = os.path.join(self.img_dir, img_id + self.exten)
-        gt_path = os.path.join(self.gt_dir, img_id + '.png')
+        gt_path = os.path.join(self.gt_dir, img_id + '_fixMap.jpg')
         #fix_path = os.path.join(self.fix_dir, img_id + '.mat')
         
         img = Image.open(img_path).convert('RGB')
